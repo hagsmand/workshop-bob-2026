@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Expenses</title>
+    <link rel="stylesheet" href="legacy.css" />
+  </head>
+  <body>
+    <center>
+      <table class="page" cellpadding="12" cellspacing="0">
+        <tr><td class="banner"><b>MY EXPENSES 2002</b><br /><small>Keep track of your spending</small></td></tr>
+        <tr><td>
+          <label>Show category:</label>
+          <select id="category" onchange="filterExpenses()"><option value="All">All</option><option value="Food">Food</option><option value="Transport">Transport</option><option value="Home">Home</option></select>
+          <span id="total"></span>
+          <hr />
+          <table id="expense-table" width="100%" cellpadding="6" cellspacing="1"></table>
+          <hr />
+          <b>Add an expense</b><br /><br />
+          <label>Description <input id="description" /></label>
+          <label>Category <select id="new-category"><option>Food</option><option>Transport</option><option>Home</option></select></label>
+          <label>Amount <input id="amount" size="7" /></label>
+          <input type="button" value="Add expense" onclick="addExpense()" />
+          <p id="message"></p>
+        </td></tr>
+      </table>
+    </center>
+    <script src="app.js"></script>
+  </body>
+</html>
