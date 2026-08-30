@@ -1,0 +1,11 @@
+body { margin: 0; padding: 24px; color: #111; background: #d9e8d0; font: 14px Verdana, Arial, sans-serif; }
+.page { width: 720px; max-width: 100%; border: 2px outset #fff; background: #fffde9; }
+.banner { color: #fff; background: #184a87; font: 22px Georgia, serif; }
+.banner small { font: 11px Verdana, sans-serif; }
+label { margin-right: 8px; }
+input, select { margin: 3px; border: 1px solid #555; font: inherit; }
+input[type="button"] { padding: 3px 8px; border: 2px outset #ddd; background: #e6e6e6; cursor: pointer; }
+th { color: white; background: #4f6e39; text-align: left; }
+td { background: #f6f2d8; }
+#total { float: right; font-weight: bold; }
+#message { color: #a00; font-weight: bold; }
