@@ -111,8 +111,55 @@ function CopyButton({ text, children }) {
   return <button onClick={copy}>{copied ? 'Copied' : children}</button>
 }
 
+const lab1Challenges = {
+  Core: [
+    { title: 'Prove current behavior', task: 'Run legacy app. Capture four facts before Bob changes code.', deliverable: 'Expense fields, category filter result, visible rows, and filtered total.', choices: ['Food total is $180', 'Page title looks modern', 'React components exist'], answers: [0] },
+    { title: 'Build Bob request from fragments', task: 'Choose every fragment needed. Then write your own request in Bob; do not copy a supplied prompt.', deliverable: 'Bob response lists visible behavior and modernization risks before edits.', choices: ['Inspect legacy/index.html and legacy/app.js', 'Preserve add, filter, list, and filtered total', 'Change files now', 'Do not edit yet'], answers: [0, 1, 3] },
+    { title: 'Gate Bob plan', task: 'Review plan. Select required acceptance conditions before approval.', deliverable: 'Approved plan names components, state owner, unchanged legacy app, and validation flow.', choices: ['One source of truth for expenses', 'Keep inline onclick handlers', 'Total derives from visible filtered expenses', 'Legacy app stays unchanged'], answers: [0, 2, 3] },
+    { title: 'Direct implementation', task: 'Tell Bob to implement only approved scope. Check resulting UI yourself.', deliverable: 'React app has semantic labels, add form, filter, list, total, and stable test IDs.', choices: ['Form + filter + list + summary components', 'Global var state', 'data-testid on key controls'], answers: [0, 2] },
+    { title: 'Run visible browser proof', task: 'Give Bob test fragments, then observe browser actions.', deliverable: 'Evidence: Lunch row visible; Food total changes from $180 to $300.', choices: ['Open local modern app', 'Add Lunch, $120, Food', 'Filter Food and compare expected versus observed', 'Edit React state directly'], answers: [0, 1, 2] },
+    { title: 'Repair smallest layer', task: 'If proof fails, make Bob explain cause before it edits.', deliverable: 'One focused fix followed by same browser test.', choices: ['Trace state to rendered total', 'Delete failed feature', 'Rerun identical acceptance flow'], answers: [0, 2] },
+  ],
+  Stretch: [
+    { title: 'Prove current behavior', task: 'Run legacy app. Capture four facts before Bob changes code.', deliverable: 'Expense fields, category filter result, visible rows, and filtered total.', choices: ['Food total is $180', 'Page title looks modern', 'React components exist'], answers: [0] },
+    { title: 'Build Bob request from fragments', task: 'Choose fragments. Add one constraint of your own about empty or invalid input.', deliverable: 'Bob response lists behavior, risks, and one edge case before edits.', choices: ['Inspect legacy/index.html and legacy/app.js', 'Preserve add, filter, list, and filtered total', 'Change files now', 'Do not edit yet'], answers: [0, 1, 3] },
+    { title: 'Gate Bob plan', task: 'Review plan. Require a clear component boundary and state owner.', deliverable: 'Plan includes behavior parity plus empty and validation states.', choices: ['One source of truth for expenses', 'Keep inline onclick handlers', 'Total derives from visible filtered expenses', 'Legacy app stays unchanged'], answers: [0, 2, 3] },
+    { title: 'Direct implementation', task: 'Approve implementation. Decide where validation feedback belongs in UI.', deliverable: 'React app has accessible controls, useful empty/error states, and stable test IDs.', choices: ['Form + filter + list + summary components', 'Global var state', 'data-testid on key controls'], answers: [0, 2] },
+    { title: 'Run visible browser proof', task: 'Compose a browser test from fragments. Add one edge case.', deliverable: 'Evidence: Lunch row visible; Food total changes from $180 to $300.', choices: ['Open local modern app', 'Add Lunch, $120, Food', 'Filter Food and compare expected versus observed', 'Edit React state directly'], answers: [0, 1, 2] },
+    { title: 'Repair smallest layer', task: 'If proof fails, have Bob identify broken invariant and smallest responsible component.', deliverable: 'Focused repair, repeated browser proof, short failure report.', choices: ['Trace state to rendered total', 'Delete failed feature', 'Rerun identical acceptance flow'], answers: [0, 2] },
+  ],
+  Expert: [
+    { title: 'Prove current behavior', task: 'Define observable behavior contract from live legacy UI, including one boundary case.', deliverable: 'Behavior contract you can use to challenge Bob’s plan.', choices: ['Food total is $180', 'Page title looks modern', 'React components exist'], answers: [0] },
+    { title: 'Build Bob request from fragments', task: 'Choose fragments; add your own scope boundary and ask Bob to identify migration risks.', deliverable: 'Evidence-based behavior inventory before edits.', choices: ['Inspect legacy/index.html and legacy/app.js', 'Preserve add, filter, list, and filtered total', 'Change files now', 'Do not edit yet'], answers: [0, 1, 3] },
+    { title: 'Gate Bob plan', task: 'Challenge state ownership and rendering choices before approval.', deliverable: 'Plan names acceptance criteria, testability seam, and no behavior drift.', choices: ['One source of truth for expenses', 'Keep inline onclick handlers', 'Total derives from visible filtered expenses', 'Legacy app stays unchanged'], answers: [0, 2, 3] },
+    { title: 'Direct implementation', task: 'Approve only after Bob can explain component responsibilities and test hooks.', deliverable: 'React app with semantic UI, stable selectors, and rationale for state ownership.', choices: ['Form + filter + list + summary components', 'Global var state', 'data-testid on key controls'], answers: [0, 2] },
+    { title: 'Run visible browser proof', task: 'Build browser flow from fragments. Add a negative or boundary assertion.', deliverable: 'Evidence for happy path plus your additional assertion.', choices: ['Open local modern app', 'Add Lunch, $120, Food', 'Filter Food and compare expected versus observed', 'Edit React state directly'], answers: [0, 1, 2] },
+    { title: 'Repair smallest layer', task: 'Require Bob to state failed invariant, root cause, patch scope, and proof.', deliverable: 'Minimal repair and reproducible browser regression test.', choices: ['Trace state to rendered total', 'Delete failed feature', 'Rerun identical acceptance flow'], answers: [0, 2] },
+  ],
+}
+
+function LabChallenge({ challenge, index }) {
+  const [selected, setSelected] = useState([])
+  const [checked, setChecked] = useState(false)
+  const toggle = (choice) => {
+    if (checked) return
+    setSelected((current) => current.includes(choice) ? current.filter((item) => item !== choice) : [...current, choice])
+  }
+  const passed = checked && challenge.answers.length === selected.length && challenge.answers.every((answer) => selected.includes(answer))
+  return <li className="lab-step">
+    <div className="step-top"><span className="step-number">{String(index + 1).padStart(2, '0')}</span><div><h4>{challenge.title}</h4><p>{challenge.task}</p></div></div>
+    <div className="challenge" aria-label={`${challenge.title} choices`}>
+      {challenge.choices.map((choice, choiceIndex) => <button key={choice} type="button" className={selected.includes(choiceIndex) ? 'fragment selected' : 'fragment'} onClick={() => toggle(choiceIndex)}>{choice}</button>)}
+      <button type="button" className="check-button" onClick={() => setChecked(true)}>Check choices</button>
+      {checked && <p className={passed ? 'challenge-result pass' : 'challenge-result'}>{passed ? 'Ready. Now write or say request in your own words.' : 'Try again. Keep only fragments that protect behavior and safe workflow.'}</p>}
+    </div>
+    <p className="deliverable"><strong>Evidence to show:</strong> {challenge.deliverable}</p>
+  </li>
+}
+
 function WorkshopInstructions({ group }) {
   const prompts = labPrompts[group]
+  const challenges = lab1Challenges[group]
   return <section className="workshop-flow" aria-label="Workshop instructions">
     <div className="section-heading"><p className="eyebrow">Your workshop runbook</p><h2>Follow this page. No README hunt.</h2></div>
     <article className="instruction-card setup">
@@ -121,7 +168,7 @@ function WorkshopInstructions({ group }) {
     </article>
     <article className="instruction-card">
       <span className="lab-number">01</span>
-      <div><p className="eyebrow">Lab 1 · 30 minutes</p><h3>Modernize Expense Tracker</h3><ol><li>Ask Bob to inspect <code>legacy/index.html</code> and <code>legacy/app.js</code>.</li><li>Review Bob’s behavior-preservation plan before it changes files.</li><li>Build React version with filter, add-expense form, expense list, and live total.</li><li>Ask Bob to open local app in browser and validate filter, add, row, and total.</li></ol><CopyButton text={prompts.lab1}>Copy Lab 1 prompt</CopyButton></div>
+      <div><p className="eyebrow">Lab 1 · 30 minutes</p><h3>Modernize Expense Tracker</h3><p className="lab-intro">Each step has a decision challenge. Fragments guide your Bob request; no full prompt to copy.</p><ol className="lab-steps">{challenges.map((challenge, index) => <LabChallenge key={challenge.title} challenge={challenge} index={index} />)}</ol></div>
     </article>
     <article className="instruction-card">
       <span className="lab-number">02</span>
