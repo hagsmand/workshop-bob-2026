@@ -48,7 +48,21 @@ code { color: #ffd3a4; font-family: "DM Mono", monospace; }
 .instruction-card.setup::after { background: #ffb36513; }
 .instruction-card h3 { margin: .2rem 0 .8rem; font-size: 1.5rem; }
 .instruction-card ol { position: relative; z-index: 1; margin: 0 0 1.25rem; padding-left: 1.2rem; color: #d7d9e7; line-height: 1.65; }
+.lab-intro { position: relative; z-index: 1; margin: 0 0 1.25rem; color: #c9cadd; line-height: 1.5; }
+.instruction-card .lab-steps { display: grid; gap: 1rem; margin: 0; padding: 0; list-style: none; }
+.lab-step { padding: 1rem; border: 1px solid #ffffff1b; border-radius: 14px; background: #0c13282e; }
+.step-top { display: grid; grid-template-columns: 2.1rem 1fr; gap: .65rem; }
+.step-number { color: #ffb365; font: 500 .85rem "DM Mono", monospace; }
+.lab-step h4 { margin: 0; color: #f4f0ea; font-size: 1.05rem; }
+.lab-step p { margin: .25rem 0 0; color: #c9cadd; line-height: 1.45; }
+.challenge { display: flex; flex-wrap: wrap; gap: .5rem; margin: .85rem 0 .65rem 2.75rem; }
+.fragment { padding: .45rem .65rem; color: #dfe4f6; border: 1px solid #ffffff2b; border-radius: 999px; background: #ffffff09; font-size: .84rem; text-align: left; }
+.fragment:hover, .fragment.selected { border-color: #9bb7ff; background: #314878; }
+.check-button { padding: .45rem .7rem; color: #10172d; border: 0; border-radius: 999px; background: #ffb365; font-size: .84rem; font-weight: 700; }
+.challenge-result { width: 100%; margin: .15rem 0 0; padding-left: .7rem; color: #ffccd4 !important; border-left: 3px solid #ff8094; }
+.challenge-result.pass { color: #c8f7dd !important; border-color: #64e3aa; }
+.deliverable { margin-left: 2.75rem !important; color: #d7d9e7 !important; font-size: .91rem; }
 .lab-number { color: #ffb365; font: 500 1.1rem "DM Mono", monospace; }
 .preview-flow { margin-top: 1.5rem; padding: 1.5rem 2rem; color: #c9cadd; line-height: 1.5; }
 @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-@media (max-width: 640px) { .shell { padding-top: 3.5rem; } .route-grid { grid-template-columns: 1fr; } .lab-card { align-items: flex-start; flex-direction: column; gap: .5rem; } .quiz-footer { align-items: flex-start; flex-direction: column; } .instruction-card { grid-template-columns: 1fr; padding: 1.5rem; } }
+@media (max-width: 640px) { .shell { padding-top: 3.5rem; } .route-grid { grid-template-columns: 1fr; } .lab-card { align-items: flex-start; flex-direction: column; gap: .5rem; } .quiz-footer { align-items: flex-start; flex-direction: column; } .instruction-card { grid-template-columns: 1fr; padding: 1.5rem; } .challenge, .deliverable { margin-left: 0; } }
