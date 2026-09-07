@@ -72,7 +72,7 @@ const saveResult = (value) => { try { localStorage.setItem('bob-workshop-diagnos
 const clearResult = () => { try { localStorage.removeItem('bob-workshop-diagnostic') } catch {} }
 
 const esc = (value) => String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char])
-const groupFor = () => scores.medium < 2 ? 'Core' : scores.hard < 2 ? 'Stretch' : 'Expert'
+const groupFor = () => scores.hard < 2 ? 'Stretch' : 'Expert'
 const correct = (selected, required) => selected.length === required.length && required.every((item) => selected.includes(item))
 
 function renderQuiz() {
